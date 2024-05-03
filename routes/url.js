@@ -1,5 +1,6 @@
 const express=require('express');
-const {handleGenerateNewUrl}=require("../controllers/url");
+const {handleGenerateNewUrl,handleRedirectUrl}=require("../controllers/url");
 const router=express.Router();
 router.post('/',handleGenerateNewUrl);
+router.get('/:shortId',handleRedirectUrl);
 module.exports=router;
