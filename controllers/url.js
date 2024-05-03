@@ -26,13 +26,24 @@ async function handleRedirectUrl(req, res) {
                 }
             }
         });
-        
-   return   res.redirect(entry.redirectUrl);
-   
+
+    return res.redirect(entry.redirectUrl);
+
+}
+
+async function handleAnalytics(req, res) {
+    const shortId = req.params.shortId;
+    const result = await URL.findOne({
+        shortId
+    });
+
+    return res.json({ "totalclicks": result.visitedHistory.length, "analytics": result.visitedHistory });
+
 }
 
 
 module.exports = {
     handleGenerateNewUrl,
-    handleRedirectUrl
+    handleRedirectUrl,
+    handleAnalytics
 };
