@@ -23,6 +23,10 @@ connectToMongoDB(process.env.MONGO_URI).then(() =>
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.json());
+app.use((req, res, next) => {
+  res.locals.user = req.user || null; // Make user available in all templates
+  next();
+});
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
