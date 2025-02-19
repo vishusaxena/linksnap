@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const favicon = require("serve-favicon");
+
 const path = require("path");
 const urlRoute = require("./routes/url");
 const staticRoute = require("./routes/staticRoutes");
@@ -23,7 +25,7 @@ app.set("views", path.resolve("./views"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use("/url", restrictToLoggedInUser, urlRoute);
 app.use("/user", userRoute);
 app.use("/", checkAuth, staticRoute);
