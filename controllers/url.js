@@ -15,6 +15,7 @@ async function handleGenerateNewUrl(req, res) {
   });
 
   return res.render("home", {
+    user: req.user || null,
     shortenedUrl: `${req.protocol}://${req.get("host")}/url/${shortId}`,
     urls: await URL.find(),
   });
