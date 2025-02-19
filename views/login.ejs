@@ -16,9 +16,15 @@
       <a class="navbar-brand fw-bold" href="/">LinkSnap</a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-          <li class="nav-item"><a class="nav-link active" href="/login">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
+          <!-- Show login/signup if not logged in -->
+          <% if (!user) { %>
+            <li class="nav-item"><a class="nav-link active" href="/login">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
+            <% } else { %>
+              <!-- Show dashboard and logout if logged in -->
+              <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+              <% } %>
         </ul>
       </div>
     </div>

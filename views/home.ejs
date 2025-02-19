@@ -29,6 +29,11 @@
             background: white;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
+        h1{
+            text-align: center;
+            color: white;
+            margin-bottom: 9px;
+        }
     </style>
 </head>
 
@@ -40,15 +45,23 @@
             <a class="navbar-brand fw-bold" href="/">LinkSnap</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
+                   
+                    <!-- Show login/signup if not logged in -->
+                    <% if (!user) { %>
+                        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
+                        <% } else { %>
+                            <!-- Show dashboard and logout if logged in -->
+                            <li class="nav-item"><a class="nav-link" href="/user/logout">Logout</a>
+</li>
+                            <% } %>
                 </ul>
             </div>
         </div>
     </nav>
 
     <div class="container-fluid mt-4">
+       <h1>Welcome! <%= user.name %></h1>
         <div class="row">
             <!-- Left Side - Form -->
             <div class="col-md-4">
@@ -62,6 +75,15 @@
                             required>
                         <button type="submit" class="btn btn-primary w-100">Generate</button>
                     </form>
+
+                    <% if (locals.shortenedUrl) { %>
+                        <div class="mt-3 p-3 bg-light border rounded text-center">
+                            <strong>Shortened URL:</strong>
+                            <a href="<%= shortenedUrl %>" target="_blank">
+                                <%= shortenedUrl %>
+                            </a>
+                        </div>
+                        <% } %>
                 </div>
             </div>
 
@@ -83,7 +105,7 @@
                                 <% urls.forEach((url, index)=> { %>
                                     <tr>
                                         <td>
-                                            <%= index+1 %>
+                                            <%= index + 1 %>
                                         </td>
                                         <td>
                                             <%= url.shortId %>
